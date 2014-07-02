@@ -1,0 +1,49 @@
+---
+- name: Run a deployment on the staging server
+  hosts: staging
+  vars_files:
+    - vars/external_vars.yml
+  user: "{{ username }}"
+  tasks:
+    - name: Pull latest sources
+      shell: git pull
+      args:
+        chdir: ~/src/{{ git_repo_name }}
+      register: git_pull
+    - debug: msg="{{ git_pull.stdout }}"
+
+    - name: rsync sources
+      shell: rsync -az --delete ~/src/{{ git_repo_name }}/{{ django_project_name }}/ ~/webapps/{{ django_project_name }}
+      register: rsync
+    - debug: msg="{{ rsync.stdout }}"
+
+    - name: run collectstatic
+      shell: source ~/.bash_profile && workon {{ django_project_name }} && ./manage.py collectstatic --noinput
+      args:
+        chdir: ~/webapps/{{ django_project_name }}
+        executable: /bin/bash
+      register: collectstatic
+    - debug: msg="{{ collectstatic.stdout }}"
+
+    - name: run syncdb
+      shell: source ~/.bash_profile && workon {{ django_project_name }} && ./manage.py syncdb --noinput
+      args:
+        chdir: ~/webapps/{{ django_project_name }}
+        executable: /bin/bash
+      register: syncdb
+    - debug: msg="{{ syncdb.stdout }}"
+
+    - name: run migrate
+      shell: source ~/.bash_profile && workon {{ django_project_name }} && ./manage.py migrate --noinput
+      args:
+        chdir: ~/webapps/{{ django_project_name }}
+        executable: /bin/bash
+      register: migrate
+    - debug: msg="{{ migrate.stdout }}"
+
+    - name: restart uwsgi
+      shell: source ~/.bash_profile && supervisorctl restart uwsgi
+      args:
+        executable: /bin/bash
+      register: supervisor
+    - debug: msg="{{ supervisor.stdout }}"

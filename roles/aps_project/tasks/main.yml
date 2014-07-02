@@ -1,6 +1,6 @@
 ---
 - name: create folders for aps_project
-  shell: mkdir -p ~/src
+  shell: mkdir -p ~/src ~/webapps/media ~/webapps/static
 
 - name: see if repo has already been cloned
   stat: path=~/src/{{ git_repo_name }}

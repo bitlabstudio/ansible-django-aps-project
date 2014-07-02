@@ -1,2 +1,9 @@
 [webservers]
 192.168.X.X
+192.168.X.Y
+
+[staging]
+192.168.X.X
+
+[production]
+192.168.X.Y
