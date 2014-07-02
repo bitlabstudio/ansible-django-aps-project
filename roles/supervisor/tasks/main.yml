@@ -1,0 +1,26 @@
+---
+- name: create folders for supervisor
+  shell: mkdir -p ~/etc ~/logs/user/supervisor
+
+- name: install supervisor
+  shell: ~/.local/bin/pip install supervisor --user
+  args:
+    executable: /bin/bash
+
+- name: install supervisord.conf
+  template: src=supervisord.conf dest=~/etc/supervisord.conf
+
+- name: start supervisor
+  shell: source ~/.bash_profile && supervisord
+  args:
+    chdir: ~/local/etc/
+    executable: /bin/bash
+
+- name: save crontab to file
+  shell: crontab -l > ~/crontab.txt
+
+- name: add supervisor crontab
+  lineinfile: dest=~/crontab.txt line="*/5 * * * * PATH=/home/{{ username }}/.local/bin:/home/{{ username }}/local/sbin /home/{{ username }}/.local/bin/supervisord -c /home/{{ username }}/local/etc/supervisord.conf > /home/{{ username }}/logs/user/supervisor/crontab.log 2>&1"
+
+- name: install new crontab
+  shell: crontab ~/crontab.txt && rm crontab.txt

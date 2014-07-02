@@ -50,3 +50,9 @@
 
 - name: rsync django project to webapps
   shell: rsync -az --delete ~/src/{{ git_repo_name }}/{{ django_project_name }}/ ~/webapps/{{ django_project_name }}
+
+- name: run collectstatic
+  shell: source ~/.bash_profile && workon {{ django_project_name }} && ./manage.py collectstatic --noinput
+  args:
+    executable: /bin/bash
+    chdir: ~/webapps/{{ django_project_name }}
