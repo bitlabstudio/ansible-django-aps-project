@@ -2,12 +2,17 @@
 # Change these things to your liking
 username: USERNAME
 nginx_port: XXXX
-django_project_name: aps_project
+django_project_name: PROJECT_NAME
+django_admins_name: ADMIN_NAME
+django_admins_email: ADMIN_EMAIL
+postgres_pw: POSTGRES_PW
 nginx_version: 1.7.2
 
 # The things here should not be changed when using a default server layout
-git_repo: https://github.com/bitmazk/django-aps-project.git
-requirements_txt: ~/src/django-aps-project/{{ django_project_name }}/requirements.txt
+git_repo_name: django-aps-project
+git_repo_url: https://github.com/bitmazk/{{ git_repo_name }}.git
+git_repo_settings_path: ~/src/{{ git_repo_name }}/{{ django_project_name }}/{{ django_project_name }}/settings
+requirements_txt_path: ~/src/django-aps-project/{{ django_project_name }}/requirements.txt
 nginx_downloads_url: http://nginx.org/download/
 nginx_download_filename: nginx-{{ nginx_version }}.tar.gz
 nginx_folder_name: nginx-{{ nginx_version }}
