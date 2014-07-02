@@ -1,0 +1,13 @@
+---
+# Change these things to your liking
+username: USERNAME
+nginx_port: XXXX
+django_project_name: aps_project
+nginx_version: 1.7.2
+
+# The things here should not be changed when using a default server layout
+git_repo: https://github.com/bitmazk/django-aps-project.git
+requirements_txt: ~/src/django-aps-project/{{ django_project_name }}/requirements.txt
+nginx_downloads_url: http://nginx.org/download/
+nginx_download_filename: nginx-{{ nginx_version }}.tar.gz
+nginx_folder_name: nginx-{{ nginx_version }}

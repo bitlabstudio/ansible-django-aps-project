@@ -1,0 +1,34 @@
+---
+- name: create folders for virtualenv
+  shell: mkdir -p ~/bin ~/tmp
+
+- name: install setuptools
+  shell: wget https://bootstrap.pypa.io/ez_setup.py -O - | python - --user
+
+- name: add local bin to PATH
+  lineinfile: dest=~/.bash_profile line='export PATH=$HOME/.local/bin:$PATH'
+
+- name: install pip
+  shell: ~/.local/bin/easy_install pip
+
+- name: install virtualenv
+  shell: ~/.local/bin/pip install virtualenv --user
+
+- name: install virtualenvwrapper
+  shell: ~/.local/bin/pip install --user virtualenvwrapper
+
+- name: add virtualenvwrapper exports to .bashrc
+  lineinfile: "dest=~/.bash_profile line='{{ item.line }}'"
+  with_items:
+    - { line: 'export PATH=$PATH:$HOME/bin' }
+    - { line: 'export TMPDIR=$HOME/tmp' }
+    - { line: 'export WORKON_HOME=$HOME/Envs' }
+    - { line: 'export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python' }
+    - { line: 'export PIP_VIRTUALENV_BASE=$WORKON_HOME' }
+    - { line: 'export PIP_RESPECT_VIRTUALENV=true' }
+    - { line: 'source $HOME/.local/bin/virtualenvwrapper.sh' }
+
+- name: initiate virtualenvwrapper
+  shell: source ~/.bash_profile
+  args:
+    executable: /bin/bash

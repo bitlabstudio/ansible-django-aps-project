@@ -1,0 +1,13 @@
+---
+- name: Main entry point for this playbook 
+  hosts: webservers
+  vars_files:
+    - vars/external_vars.yml
+  user: "{{ username }}"
+
+  roles:
+    - virtualenv
+    #- common-python
+    #- supervisor
+    #- nginx
+    #- uwsgi
