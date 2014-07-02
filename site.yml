@@ -9,5 +9,5 @@
     - virtualenv
     #- common-python
     #- supervisor
-    #- nginx
+    - nginx
     #- uwsgi

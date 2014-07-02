@@ -1,4 +1,4 @@
-# Ansible Playbook for django-aps-project 
+# Ansible Playbook for django-aps-project
 
 DO NOT USE THIS! WORK IN PROGRESS
 
@@ -7,11 +7,17 @@ This is an Ansible playbook that sets up a server to run
 
 Using this playbook involves several steps:
 
-* Setup your server with Ubuntu and create a new user `webuser` 
+* Setup your server with Ubuntu and create a new user `webuser`
 * Change the variables of this playbook
 * Run the playbook
 
 # Prerequisites
+
+## Setup webserver
+
+Please install the following packages:
+
+    sudo apt-get install make libpcre3 libpcre3-dev
 
 ## Change variables
 
