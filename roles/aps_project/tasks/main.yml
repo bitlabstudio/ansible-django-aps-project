@@ -1,0 +1,52 @@
+---
+- name: create folders for aps_project
+  shell: mkdir -p ~/src
+
+- name: see if repo has already been cloned
+  stat: path=~/src/{{ git_repo_name }}
+  register: git_repo
+
+- name: clone sources from github
+  shell: git clone {{ git_repo_url }}
+  when: not git_repo.stat.exists
+  args:
+    chdir: ~/src
+
+- name: initiate submodules
+  shell: git submodule init && git submodule update
+  args:
+    chdir: ~/src/{{ git_repo_name }}
+
+- name: copy local_settings file
+  shell: cp local_settings.py.sample local_settings.py
+  args:
+    chdir: "{{ git_repo_settings_path }}"
+
+- name: setup local_settings file
+  replace: dest={{ git_repo_settings_path }}/local_settings.py regexp='{{ item.regexp }}' replace='{{ item.replace }}'
+  with_items:
+    - { regexp: 'admin-XXXX', replace: 'admin' }
+    - { regexp: 'Your Name', replace: "{{ django_admins_name }}" }
+    - { regexp: 'yourname@gmail.com', replace: "{{ django_admins_email }}" }
+    - { regexp: '    # ', replace: '     ' }
+    - { regexp: 'POSTGRES_PW', replace: "{{ postgres_pw }}" }
+    - { regexp: '../../aps_project_media', replace: '/home/{{ username }}/webapps/media'}
+    - { regexp: '../../aps_project_static', replace: '/home/{{ username }}/webapps/static'}
+
+- name: copy fabfile_settings file
+  shell: cp fabfile_settings.py.sample fabfile_settings.py
+  args:
+    chdir: "{{ git_repo_settings_path }}"
+
+- name: create venv
+  shell: source ~/.bash_profile && mkvirtualenv {{ django_project_name }}
+  args:
+    executable: /bin/bash
+
+- name: install venv
+  shell: source ~/.bash_profile && workon {{ django_project_name }} && pip install -r {{ requirements_txt_path }}
+  args:
+    executable: /bin/bash
+
+- name: rsync django project to webapps
+  shell: rsync -az --delete ~/src/{{ git_repo_name }}/{{ django_project_name }}/ ~/webapps/{{ django_project_name }}

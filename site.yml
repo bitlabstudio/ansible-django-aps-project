@@ -11,3 +11,4 @@
     #- supervisor
     - nginx
     - uwsgi
+    - aps_project
