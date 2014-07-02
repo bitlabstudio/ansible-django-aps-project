@@ -8,7 +8,7 @@
     executable: /bin/bash
 
 - name: install supervisord.conf
-  template: src=supervisord.conf dest=~/etc/supervisord.conf
+  template: src=supervisord.conf dest=~/local/etc/supervisord.conf
 
 - name: start supervisor
   shell: source ~/.bash_profile && supervisord
