@@ -1,5 +1,5 @@
 ---
-- name: Main entry point for this playbook 
+- name: Main entry point for this playbook
   hosts: webservers
   vars_files:
     - vars/external_vars.yml
@@ -10,4 +10,4 @@
     #- common-python
     #- supervisor
     - nginx
-    #- uwsgi
+    - uwsgi

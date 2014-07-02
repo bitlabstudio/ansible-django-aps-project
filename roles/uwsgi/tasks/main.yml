@@ -1,0 +1,9 @@
+---
+- name: uWSGI create necessary folders
+  shell: mkdir -p ~/logs/user/uwsgi
+
+- name: install uwsgi
+  shell: ~/.local/bin/pip install uwsgi --user
+
+- name: upload uwsgi.ini
+  template: src=uwsgi.ini dest=~/local/etc/uwsgi.ini

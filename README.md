@@ -17,7 +17,7 @@ Using this playbook involves several steps:
 
 Please install the following packages:
 
-    sudo apt-get install make libpcre3 libpcre3-dev
+    sudo apt-get install make python-dev libpcre3 libpcre3-dev
 
 ## Change variables
 
