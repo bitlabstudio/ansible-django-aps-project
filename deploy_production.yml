@@ -1,6 +1,6 @@
 ---
-- name: Run a deployment on the staging server
-  hosts: staging
+- name: Run a deployment on the production server
+  hosts: production
   vars_files:
     - vars/external_vars.yml
   user: "{{ username }}"
