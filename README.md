@@ -1,4 +1,4 @@
-# Ansible Playbook for Django on Webfaction
+# Ansible Playbook for django-aps-project 
 
 DO NOT USE THIS! WORK IN PROGRESS
 
