@@ -1,0 +1,13 @@
+---
+- name: export database
+  shell: source ~/.bash_profile && workon {{ django_project_name }} && fab prod run_export_db
+  args:
+    executable: /bin/bash
+    chdir: ~/webapps/{{ django_project_name }}
+  register: output
+- debug: msg="{{ output.stdout }}"
+
+- name: copy database
+  shell: scp ~/backups/{{ django_project_name }}/postgres/{{ django_project_name }}.dump {{ groups['staging']}}:/home/webuser/webapps/{{ django_project_name }}/
+  register: output
+- debug: msg="{{ output.stdout }}"

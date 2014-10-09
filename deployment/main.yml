@@ -39,5 +39,6 @@
   shell: source ~/.bash_profile && supervisorctl restart uwsgi
   args:
     executable: /bin/bash
+    chdir: ~/local/etc/
   register: supervisor
 - debug: msg="{{ supervisor.stdout }}"

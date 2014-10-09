@@ -1,0 +1,32 @@
+---
+- name: drop database
+  shell: source ~/.bash_profile && workon {{ django_project_name }} && fab drop_db
+  args:
+    executable: /bin/bash
+    chdir: ~/webapps/{{ django_project_name }}
+  register: output
+- debug: msg="{{ output.stdout }}"
+
+- name: create database
+  shell: source ~/.bash_profile && workon {{ django_project_name }} && fab create_db
+  args:
+    executable: /bin/bash
+    chdir: ~/webapps/{{ django_project_name }}
+  register: output
+- debug: msg="{{ output.stdout }}"
+
+- name: import database
+  shell: source ~/.bash_profile && workon {{ django_project_name }} && fab import_db
+  args:
+    executable: /bin/bash
+    chdir: ~/webapps/{{ django_project_name }}
+  register: output
+- debug: msg="{{ output.stdout }}"
+
+- name: reset passwords
+  shell: source ~/.bash_profile && workon {{ django_project_name }} && fab reset_passwords
+  args:
+    executable: /bin/bash
+    chdir: ~/webapps/{{ django_project_name }}
+  register: output
+- debug: msg="{{ output.stdout }}"

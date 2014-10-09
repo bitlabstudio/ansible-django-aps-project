@@ -1,0 +1,16 @@
+---
+- name: Step1 - Export PROD DB
+  hosts: production
+  vars_files:
+    - vars/external_vars.yml
+  user: "{{ username }}"
+  tasks:
+    - include: import_db/export_prod_db.yml
+
+- name: Step2 - Import PROD DB into STAGING DB
+  hosts: staging
+  vars_files:
+    - vars/external_vars.yml
+  user: "{{ username }}"
+  tasks:
+    - include: import_db/import_staging_db.yml

@@ -1,7 +1,5 @@
 # Ansible Playbook for django-aps-project
 
-DO NOT USE THIS! WORK IN PROGRESS
-
 This is an Ansible playbook that sets up a server to run
 [django-aps-project](https://github.com/bitmazk/django-aps-project).
 
@@ -24,6 +22,9 @@ Make sure that a crontab exists:
     crontab -e
     # save and quit
 
+You might also want to create a public SSH key for the server and add it to
+it's own ``authorized_keys`` file.
+
 ## Change variables
 
 Next, copy the `hosts.example` file and change the USERNAME to your Webfaction
@@ -44,3 +45,23 @@ your liking. The values you need to change are all uppercase letters.
 Now execute the playbook:
 
     ansible-playbook -i hosts site.yml
+
+# Create database
+
+After the server provisioning, you need to connect to your database and create
+a role ``aps_project`` and a database ``aps_project`` with the password that
+you set as ``postgres_pw`` in ``external_vars.yml``.
+
+# Deployments
+
+When new code has been pushed to Github, a deployment can be done via:
+
+    ansible-playbook -i hosts deploy_staging.yml
+    ansible-playbook -i hosts deploy_production.yml
+
+# Import database from production to staging
+
+If you need to debug complex problems and need the production database on the
+staging server, you can imort the database via:
+
+    ansible-playbook -i hosts import_db.yml
