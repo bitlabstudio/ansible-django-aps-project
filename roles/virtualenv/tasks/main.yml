@@ -5,6 +5,9 @@
 - name: install setuptools
   shell: wget https://bootstrap.pypa.io/ez_setup.py -O - | python - --user
 
+- name: touch .bash_profile
+  shell: touch $HOME/.bash_profile
+
 - name: add local bin to PATH
   lineinfile: dest=~/.bash_profile line='export PATH=$HOME/.local/bin:$PATH'
 

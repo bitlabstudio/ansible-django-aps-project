@@ -19,6 +19,11 @@ Please install the following packages:
 
     sudo apt-get install make python-dev libpcre3 libpcre3-dev
 
+Make sure that a crontab exists:
+
+    crontab -e
+    # save and quit
+
 ## Change variables
 
 Next, copy the `hosts.example` file and change the USERNAME to your Webfaction
