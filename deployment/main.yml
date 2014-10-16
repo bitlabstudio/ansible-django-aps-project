@@ -6,6 +6,13 @@
   register: git_pull
 - debug: msg="{{ git_pull.stdout }}"
 
+- name: Install requirements
+  shell: source ~/.bash_profile && workon {{ django_project_name }} && pip install -r {{ requirements_txt_path }}
+  args:
+    executable: /bin/bash
+  register: pip_install
+- debug: msg="{{ pip_install.stdout }}"
+
 - name: rsync sources
   shell: rsync -az --delete ~/src/{{ git_repo_name }}/{{ django_project_name }}/ ~/webapps/{{ django_project_name }}
   register: rsync
