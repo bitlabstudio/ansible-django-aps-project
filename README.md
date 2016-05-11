@@ -5,6 +5,8 @@ This app has been discontinued and is no longer maintained.
 
 # Ansible Playbook for django-aps-project
 
+[![Join the chat at https://gitter.im/bitmazk/ansible-django-aps-project](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/bitmazk/ansible-django-aps-project?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 This is an Ansible playbook that sets up a server to run
 [django-aps-project](https://github.com/bitmazk/django-aps-project).
 
